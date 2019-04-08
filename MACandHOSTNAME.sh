@@ -1,3 +1,8 @@
+# automating: 
+# -wlan interface search
+# -MAC address changes
+# -hostname changes
+
 # get the name of ALL wlan interfaces
 wlan_adapters_array=( $(basename -a /sys/class/net/*) )
 
