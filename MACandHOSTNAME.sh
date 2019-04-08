@@ -1,3 +1,5 @@
+#!/bin/bash
+# tai-euler
 # automating: 
 # -wlan interface search
 # -MAC address changes
