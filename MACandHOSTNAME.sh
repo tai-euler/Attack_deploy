@@ -1,15 +1,15 @@
 #!/bin/bash
 # tai-euler
 # automating: 
-# -wlan interface search
-# -MAC address changes
-# -hostname changes
+# -network interface search
+# -MAC address change for network interfaces
+# -hostname change
 
-# get the name of ALL wlan interfaces
-wlan_adapters_array=( $(basename -a /sys/class/net/*) )
+# get the name of ALL network interfaces
+network_interfaces_array=( $(basename -a /sys/class/net/*) )
 
-# loop through ALL wlan interfaces and change MAC address
-for i in "${wlan_adapters_array[@]}"
+# loop through ALL network interfaces and change MAC address
+for i in "${network_interfaces_array[@]}"
 do
     echo $i
     sudo ifconfig $i down
@@ -21,7 +21,7 @@ do
 done
 
 # show new MAC addresses
-for i in "${wlan_adapters_array[@]}"
+for i in "${network_interfaces_array[@]}"
 do
     echo ============$i==================
     macchanger $i
