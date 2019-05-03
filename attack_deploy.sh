@@ -79,6 +79,14 @@ git clone https://github.com/Dionach/CMSmap
 cd /usr/share/tools
 apt install dirb -y
 git clone https://github.com/OJ/gobuster
+#wget https://github.com/OJ/gobuster/archive/v1.3.tar.gz
+#tar xzvf v1.3.tar.gz
+#mv gobuster-1.3 go-buster
+#cd go-buster
+#wget https://gist.github.com/jhaddix/86a06c5dc309d08580a018c66354a056/raw/all.txt
+#go build
+#chmod 777 gobuster
+#cd ..
 git clone https://github.com/henshin/filebuster
 git clone https://github.com/TheRook/subbrute.git
 git clone https://github.com/maurosoria/dirsearch.git
