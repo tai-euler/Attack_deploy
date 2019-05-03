@@ -20,7 +20,6 @@ fi
  echo "deb http://ftp.debian.org/debian/ stretch-updates main contrib non-free" >> /etc/apt/sources.list
  echo "deb-src http://ftp.debian.org/debian/ stretch-updates main contrib non-free" >> /etc/apt/sources.list
  echo "deb http://security.debian.org/ stretch/updates main contrib non-free" >> /etc/apt/sources.list
- echo "deb-src http://security.debian.org/ stretch/updates main contrib non-free" >> /etc/apt/sources.list
 
 # Install Kali Repos
  apt-key adv --keyserver pgp.mit.edu --recv-keys ED444FF07D8D0BF6
@@ -31,6 +30,7 @@ fi
  apt update
  apt-get upgrade -y
  apt-get dist-upgrade -y
+ apt-get autoclean
 
 # Install Basics
 apt install sudo git wget curl git zip ccze byobu zsh golang  ufw python-pip -y
@@ -62,6 +62,12 @@ git clone https://github.com/anshumanbh/brutesubs
 git clone https://github.com/jhaddix/domain
 apt -f install fierce
 
+# expired domain take overs
+git clone https://github.com/JordyZomer/autoSubTakeover.git
+cd autoSubTakeover
+pip install -r requirements.txt
+cd ..
+
 # CMS Tooling
 cd /usr/share/tools
 mkdir CMS && cd CMS
@@ -74,6 +80,10 @@ cd /usr/share/tools
 apt install dirb -y
 git clone https://github.com/OJ/gobuster
 git clone https://github.com/henshin/filebuster
+git clone https://github.com/TheRook/subbrute.git
+git clone https://github.com/maurosoria/dirsearch.git
+wget https://gist.githubusercontent.com/random-robbie/b8fad5cbff2c5dbcb3470b6cd0c6d635/raw/dirsearch_it.sh -O /bin/dirsearch
+chmod 777 /bin/dirsearch
 
 # Git Recon
 mkdir /usr/share/tools/git
@@ -94,10 +104,64 @@ git clone https://github.com/GerbenJavado/LinkFinder
 cd /usr/share/tools
 git clone https://github.com/ChrisTruncer/EyeWitness
 git clone https://github.com/robertdavidgraham/masscan
+git clone https://github.com/random-robbie/CRLF-Injection-Scanner.git
+cd CRLF-Injection-Scanner
+pip install colored eventlet
+cd ..
+git clone -b develop https://github.com/tijme/angularjs-csti-scanner.git
+cd angularjs-csti-scanner
+pip install -r requirements.txt
+python setup.py install
+wget "https://raw.githubusercontent.com/random-robbie/docker-dump/master/mass-angularjs-csti-scanner/mass-scan" -o /bin/mass-scan
+wget "https://raw.githubusercontent.com/random-robbie/docker-dump/master/mass-angularjs-csti-scanner/scan" -o /bin/scan
+chmod 777 /bin/scan
+chmod 777 /bin/mass-scan
+cd ..
 
 # BBF Tooling
 mkdir /usr/share/tools/BBF
 cd /usr/share/tools/BBF
 for y in $(wget https://bugbountyforum.com/tools/ &&  grep "/tools/" index.html | cut -d "=" -f 2 | cut -d "/" -f 2,3 | grep -v ">"); do wget https://bugbountyforum.com/$y; done && for x in $(ls); do grep "href=" $x | cut -d "=" -f 2 | grep github.com | cut -d "/" -f 3,4,5 | cut -d " " -f 1 |sed -e 's/^"//' -e 's/"$//' | grep -v "gist" >> Repos.txt; done && for a in $(cat Repos.txt);do git clone https://$a; done && find . -maxdepth 1 -type f -delete
+
+ echo "deb-src http://security.debian.org/ stretch/updates main contrib non-free" >> /etc/apt/sources.list
+
+# Install Chrome
+echo "[*] Install Chrome.[*]"
+wget -N https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -P ~/
+dpkg -i --force-depends ~/google-chrome-stable_current_amd64.deb
+apt-get -f install -y
+dpkg -i --force-depends ~/google-chrome-stable_current_amd64.deb
+
+# Javascript frameworks
+echo "[*] Install nodejs [*]"
+curl -sL https://deb.nodesource.com/setup_8.x | bash -
+apt-get install -y nodejs
+
+echo "[*] Install PhantomJs[*]"
+curl -L https://gist.githubusercontent.com/ManuelTS/935155f423374e950566d05d1448038d/raw/906887cbfa384d450276b87087d28e6a51245811/install_phantomJs.sh | sh
+
+echo "[*] Install Casperjs[*]"
+git clone git://github.com/n1k0/casperjs.git
+cd casperjs
+ln -sf `pwd`/bin/casperjs /usr/local/bin/casperjs
+cd ..
+
+#some default packages
+echo -e "\nInstalling default packages...\n"
+apt-get -y install build-essential checkinstall fail2ban gcc firefox git sqlite3 ruby ruby-dev git-core python-dev python-pip unzip jruby libbz2-dev libc6-dev libgdbm-dev libncursesw5-dev libreadline-gplv2-dev libsqlite3-dev libssl-dev nikto nmap nodejs python-dev python-numpy python-scipy python-setuptools tk-dev unattended-upgrades wget curl
+apt-get install -y xvfb x11-xkb-utils xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic x11-apps clang libdbus-1-dev libgtk2.0-dev libnotify-dev libgnome-keyring-dev libgconf2-dev libasound2-dev libcap-dev libcups2-dev libxtst-dev libxss1 libnss3-dev gcc-multilib g++-multilib libldns-dev
+
+# Ruby 
+apt-get -qq install gnupg2 -y
+curl -sSL https://rvm.io/mpapis.asc | gpg --import -
+curl -L https://get.rvm.io | bash -s stable --ruby
+echo "source /usr/local/rvm/scripts/rvm" >> ~/.bashrc
+
+# s3 bucket checker
+mkdir s3-bucket-check
+cd s3-bucket-check
+wget https://gist.githubusercontent.com/random-robbie/b452cc3e1aa99cfeba764e70b5a26dc8/raw/bucket_upload.sh
+wget https://gist.githubusercontent.com/random-robbie/b0c8603e55e22b21c49fd80072392873/raw//bucket_list.sh
+cd ..
 
 echo "That's all folks! You're good to go hack the planet!"
