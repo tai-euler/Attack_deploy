@@ -68,6 +68,9 @@ cd autoSubTakeover
 pip install -r requirements.txt
 cd ..
 
+# sending test payloads for known web CVEs
+git clone https://github.com/tai-euler/web-cve-tests
+
 # CMS Tooling
 cd /usr/share/tools
 mkdir CMS && cd CMS
