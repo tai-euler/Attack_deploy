@@ -33,7 +33,7 @@ fi
  apt-get autoclean
 
 # Install Basics
-apt install sudo git wget curl git zip ccze byobu zsh golang  ufw python-pip -y
+apt install sudo git wget curl git zip ccze byobu zsh golang  ufw python-pip -y python3 python3-pip
 
 # Install Basic Attack Tools
 apt-get install -y nikto dotdotpwn jsql nmap sqlmap sqlninja thc-ipv6 hydra metasploit-framework dirb
