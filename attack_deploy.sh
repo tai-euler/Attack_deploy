@@ -37,6 +37,9 @@ apt install sudo git wget curl git zip ccze byobu zsh golang  ufw python-pip -y
 
 # Install Basic Attack Tools
 apt-get install -y nikto dotdotpwn jsql nmap sqlmap sqlninja thc-ipv6 hydra metasploit-framework dirb
+apt-get -y install build-essential checkinstall fail2ban gcc firefox git sqlite3 ruby ruby-dev git-core python-dev python-pip unzip jruby libbz2-dev libc6-dev libgdbm-dev libncursesw5-dev libreadline-gplv2-dev libsqlite3-dev libssl-dev nikto nmap nodejs python-dev python-numpy python-scipy python-setuptools tk-dev unattended-upgrades wget curl
+apt-get install -y xvfb x11-xkb-utils xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic x11-apps clang libdbus-1-dev libgtk2.0-dev libnotify-dev libgnome-keyring-dev libgconf2-dev libasound2-dev libcap-dev libcups2-dev libxtst-dev libxss1 libnss3-dev gcc-multilib g++-multilib libldns-dev
+
 
 # Make Tools & Wordlists Directory
 mkdir /usr/share/wordlists
@@ -70,6 +73,9 @@ cd ..
 
 # sending test payloads for known web CVEs
 git clone https://github.com/tai-euler/web-cve-tests
+
+# Online Local Vulnerability Scanner
+git clone https://github.com/tai-euler/Vulmap
 
 # CMS Tooling
 cd /usr/share/tools
@@ -156,11 +162,6 @@ git clone git://github.com/n1k0/casperjs.git
 cd casperjs
 ln -sf `pwd`/bin/casperjs /usr/local/bin/casperjs
 cd ..
-
-#some default packages
-echo -e "\nInstalling default packages...\n"
-apt-get -y install build-essential checkinstall fail2ban gcc firefox git sqlite3 ruby ruby-dev git-core python-dev python-pip unzip jruby libbz2-dev libc6-dev libgdbm-dev libncursesw5-dev libreadline-gplv2-dev libsqlite3-dev libssl-dev nikto nmap nodejs python-dev python-numpy python-scipy python-setuptools tk-dev unattended-upgrades wget curl
-apt-get install -y xvfb x11-xkb-utils xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic x11-apps clang libdbus-1-dev libgtk2.0-dev libnotify-dev libgnome-keyring-dev libgconf2-dev libasound2-dev libcap-dev libcups2-dev libxtst-dev libxss1 libnss3-dev gcc-multilib g++-multilib libldns-dev
 
 # Ruby 
 apt-get -qq install gnupg2 -y
