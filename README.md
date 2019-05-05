@@ -1,4 +1,4 @@
-# Attack_deploy
+# attack_deploy
 Scripts for automatic preparation for pentest in a new Linux system:
 
 - attack_deploy.sh :  Script for deploying new VPS & downloading all required tools (@ZephrFish)
