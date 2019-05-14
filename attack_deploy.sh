@@ -27,7 +27,7 @@ fi
  echo "deb http://http.kali.org/kali kali-rolling main contrib non-free" >> /etc/apt/sources.list
 
 # Update & Upgrade Repo
- apt update
+ apt-get update && apt-get install git && apt-get install curl 
  #apt-get upgrade -y
  #apt-get dist-upgrade -y
  apt-get autoclean
