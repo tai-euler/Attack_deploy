@@ -28,8 +28,8 @@ fi
 
 # Update & Upgrade Repo
  apt update
- apt-get upgrade -y
- apt-get dist-upgrade -y
+ #apt-get upgrade -y
+ #apt-get dist-upgrade -y
  apt-get autoclean
 
 # Install Basics
